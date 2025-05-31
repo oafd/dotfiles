@@ -1,5 +1,6 @@
 lastupdatecheck: 1745267218
 recentrepos:
+    - /Users/oscarf
     - /Users/oscarf/.oh-my-zsh
     - /Users/oscarf/kiwigrid/projects/flux-kiwios
     - /Users/oscarf/kiwigrid/projects/gateway-registry
@@ -10,7 +11,6 @@ recentrepos:
     - /Users/oscarf/.local/share/nvim/lazy/mason-lspconfig.nvim
     - /Users/oscarf/rust/hello
     - /Users/oscarf/.local/share/nvim/lazy/LazyVim
-    - /Users/oscarf/.config/nvim
     - /Users/oscarf/kiwigrid/projects/fabservice
     - /Users/oscarf/kiwigrid/projects/hawkbit-proxy
     - /Users/oscarf/kiwigrid/projects/prodx-datacollector

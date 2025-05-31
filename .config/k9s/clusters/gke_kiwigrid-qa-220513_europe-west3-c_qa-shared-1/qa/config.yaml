@@ -1,0 +1,13 @@
+k9s:
+  cluster: gke_kiwigrid-qa-220513_europe-west3-c_qa-shared-1
+  namespace:
+    active: kiwios
+    lockFavorites: false
+    favorites:
+      - kiwios
+      - default
+  view:
+    active: po
+  featureGates:
+    nodeShell: false
+  proxy: null

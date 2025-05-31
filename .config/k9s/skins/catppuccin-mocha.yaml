@@ -1,0 +1,52 @@
+k9s:
+  body:
+    fgColor: "#cdd6f4"
+    bgColor: default
+    logoColor: "#f38ba8"
+  prompt:
+    fgColor: "#f5e0dc"
+    bgColor: default
+    suggestColor: "#a6e3a1"
+  help:
+    fgColor: "#cdd6f4"
+    bgColor: default
+    sectionColor: "#f9e2af"
+  frame:
+    border:
+      fgColor: "#89b4fa"
+      bgColor: default
+    menu:
+      fgColor: "#94e2d5"
+      keyColor: "#f38ba8"
+      descriptionColor: "#cdd6f4"
+    crumbs:
+      fgColor: "#89b4fa"
+      bgColor: default
+      activeColor: "#f38ba8"
+    status:
+      newColor: "#a6e3a1"
+      modifyColor: "#f9e2af"
+      addColor: "#a6e3a1"
+      errorColor: "#f38ba8"
+      highlightColor: "#94e2d5"
+      killColor: "#f38ba8"
+      completedColor: "#cba6f7"
+  views:
+    table:
+      fgColor: "#cdd6f4"
+      bgColor: default
+      header:
+        fgColor: "#f38ba8"
+        bgColor: default
+        sorterColor: "#fab387"
+    xray:
+      fgColor: "#cdd6f4"
+      bgColor: default
+      cursorColor: "#89b4fa"
+    charts:
+      bgColor: default
+      defaultColor: "#cdd6f4"
+      chartColor: "#f38ba8"
+      topColor: "#f38ba8"
+      usedColor: "#f38ba8"
+      unusedColor: "#585b70"
