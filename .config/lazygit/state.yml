@@ -6,7 +6,6 @@ recentrepos:
     - /Users/oscarf/kiwigrid/projects/gateway-registry
     - /Users/oscarf/kiwigrid/projects/connector
     - /Users/oscarf/kiwigrid/projects/edge-releases
-    - /Users/oscarf/.local/share/chezmoi
     - /Users/oscarf/kiwigrid/projects/hono-client-rs
     - /Users/oscarf/.local/share/nvim/lazy/mason-lspconfig.nvim
     - /Users/oscarf/rust/hello
