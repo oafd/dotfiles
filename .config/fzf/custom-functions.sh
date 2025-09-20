@@ -161,3 +161,57 @@ bindkey '^[e' fzf-env-preview
 help() {
   "$@" --help 2>&1 | cat --paging=always --language=help
 }
+ksecret() {
+  emulate -L zsh
+  setopt pipefail
+
+  local ns="kiwios" ctx="qa" filter="" name
+
+  # Flags: -n/--namespace, --context, [optional substring filter]
+  while (( $# )); do
+    case "$1" in
+      -n|--namespace) ns="$2"; shift 2 ;;
+      --context)      ctx="$2"; shift 2 ;;
+      *)              filter="$1"; shift ;;
+    esac
+  done
+
+  # Pick a secret with fzf (Esc cleanly aborts)
+  name="$(
+    kubectl -n "$ns" --context "$ctx" get secret --no-headers 2>/dev/null \
+      | awk '{print $1}' \
+      | { [[ -n "$filter" ]] && grep -i -- "$filter" || cat; } \
+      | fzf --prompt="Secret ($ns/$ctx)> " --height=15 --reverse \
+            --preview "kubectl -n $ns --context $ctx get secret {} -o json \
+                       | jq -r '.data | map_values(@base64d)'" \
+            --preview-window=right:60%
+  )" || return 130
+  [[ -n $name ]] || return 130
+
+  # Decode and emit all keys except 'ca.crt' and 'secret-old'
+  local tsv
+  tsv="$(
+    kubectl -n "$ns" --context "$ctx" get secret "$name" -o json \
+      | jq -r '.data
+               | del(.["ca.crt"], .["secret-old"])
+               | map_values(@base64d)
+               | to_entries[]
+               | "\(.key)\t\(.value)"'
+  )" || { print -u2 "ksecret: failed to fetch/decode $name"; return 1; }
+
+  # Export each key
+  local exported=() key val
+  while IFS=$'\t' read -r key val; do
+    [[ -z $key ]] && continue
+    typeset -g "$key"="$val"
+    export "$key"
+    exported+=("$key")
+  done <<< "$tsv"
+
+  if (( ${#exported[@]} == 0 )); then
+    print -u2 "ksecret: no exportable fields in secret '$name' (after ignoring ca.crt and secret-old)"
+    return 1
+  fi
+
+  print "Exported: ${exported[*]} from $name (ns=$ns ctx=$ctx)"
+}

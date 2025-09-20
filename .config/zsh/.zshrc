@@ -1,4 +1,4 @@
-set -o vi
+# set -o vi
 # Home/End (works if your terminal sends \e[H / \e[F)
 bindkey -M viins '^[[H' beginning-of-line
 bindkey -M viins '^[[F' end-of-line
@@ -20,6 +20,11 @@ bindkey -M viins '^[^[[D' backward-word
 bindkey -M viins '^[^[[C' forward-word
 bindkey -M vicmd '^[^[[D' backward-word
 bindkey -M vicmd '^[^[[C' forward-word
+
+# ctrl r works in normal/insert modes
+bindkey -M viins '^R' fzf-history-widget
+bindkey -M vicmd '^R' fzf-history-widget
+
 
 # ─────────────────────────────────────────────────────────────
 # Locale & Editor
@@ -104,9 +109,17 @@ source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 # ─────────────────────────────────────────────────────────────
 if [[ $- == *i* ]] && [[ -t 1 ]]; then
   export ZSH="$HOME/.oh-my-zsh"
+  # Ensure fzf widgets are loaded (so fzf-history-widget exists)
+  # source /opt/homebrew/opt/fzf/shell/key-bindings.zsh 2>/dev/null || source ~/.fzf.zsh 2>/dev/null
+
+  # After zsh-vi-mode initializes, (re)bind ^R in both vi keymaps
+  zvm_after_init() {
+    bindkey -M viins '^R' fzf-history-widget
+    bindkey -M vicmd '^R' fzf-history-widget
+  }
   # ZSH_THEME="powerlevel10k/powerlevel10k"
   COMPLETION_WAITING_DOTS="true"
-  plugins=(git fzf fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
+  plugins=(git fzf fzf-tab zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode)
   source "$ZSH/oh-my-zsh.sh"   # compinit + ZLE widgets
 
   # Kubectl completion (after OMZ so compinit is ready)
@@ -161,6 +174,7 @@ alias catjson='sed -e '\''s/\\n/\n    /g'\'' -e '\''s/\\tat/    at/g'\'' -e '\''
 alias color='pastel color'
 alias colores='pastel list'
 alias cp='cp -vi'
+alias du='dust -b -i -d 1'
 alias j11="export JAVA_HOME=`/usr/libexec/java_home -v 11`; java -version"
 alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
 alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
@@ -178,7 +192,7 @@ alias ls='eza --oneline --icons --color=always'
 alias m='nvim'
 alias man='batman'
 alias mv='mv -vi'
-alias ncdu="ncdu --color dark"
+# alias ncdu="ncdu --color dark"
 alias raycast='open -a "Raycast"'
 alias top='btm'
 alias wget='wget2'

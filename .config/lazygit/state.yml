@@ -1,11 +1,11 @@
 lastupdatecheck: 1745267218
 recentrepos:
     - /Users/oscarf/dotfiles
-    - /Users/oscarf/kiwigrid/projects/thing-telemetry-processor
     - /Users/oscarf/kiwigrid/projects/flux-kiwios
-    - /Users/oscarf/kiwigrid/projects/rpc-adapter
-    - /Users/oscarf/kiwigrid/projects/gateway-registry
     - /Users/oscarf/kiwigrid/projects/fabservice
+    - /Users/oscarf/kiwigrid/projects/gateway-registry
+    - /Users/oscarf/kiwigrid/projects/thing-telemetry-processor
+    - /Users/oscarf/kiwigrid/projects/rpc-adapter
     - /Users/oscarf/kiwigrid/projects/connector
     - /Users/oscarf/kiwigrid/projects/remote-access-http-proxy
     - /Users/oscarf/kiwigrid/projects/hono-client-rs
