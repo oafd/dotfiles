@@ -1,0 +1,145 @@
+set multicursor
+set functiontextobj
+set quickscope
+set which-key
+set timeoutlen=5000
+set highlightedyank
+set hlsearch
+set incsearch    " optional: show matches as you type
+" Go To
+
+map gb :action CommentByBlockComment<CR>
+map gc :action CommentByLineComment<CR>
+map gp :action IntroduceParameter<CR>
+map gr :action FindUsages<CR>
+map gi :action GotoImplementation<CR>
+map gs :action GotoSymbol<CR>
+map gt :action GotoTest<CR>
+
+let mapleader=" "
+nmap <Leader><Leader> :action SearchEverywhere<CR>
+
+" Buffer Actions
+nmap <leader>bd :action CloseContent<CR>
+nmap <leader>bo :action CloseAllEditorsButActive<CR>
+nmap <leader>ba :action CloseAllEditors<CR>
+nmap <leader>bu :action ReopenClosedTab<CR>
+nmap <leader>br :action CloseEditorsToTheRight<CR>
+nmap <leader>bl :action CloseEditorsToTheLeft<CR>
+nmap <leader>bp :action PinActiveTab<CR>
+
+"Code
+nmap <leader>ca :action Refactorings.QuickListPopupAction<CR>
+nmap <leader>cr :action RenameElement<CR>
+nmap <leader>co :action OptimizeImports<CR>:action ReformatCode<CR>
+map <leader>cf :action ReformatCode<CR>
+vmap <leader>cf :action ReformatCode<CR>
+
+"Windows 
+nmap <leader>ws :action SplitHorizontally<CR>
+nmap <leader>wv :action SplitVertically<CR>
+nmap <leader>wd :action CloseContent<CR>
+nmap <leader>ww :action NextSplitter<CR>
+nmap <leader>wL :action NextSplitter<CR>
+nmap <leader>wH :action PrevSplitter<CR>
+nmap <leader>wJ :action NextSplitter<CR>
+nmap <leader>wK :action PrevSplitter<CR>
+map <leader>z :action MaximizeEditorInSplit<CR>
+
+nmap <leader>, :action Switcher<CR>
+
+nmap K :action QuickJavaDoc<CR>
+
+" Git
+nmap <leader>gb :action Annotate<CR>
+nmap <leader>gf :action Vcs.ShowTabbedFileHistory<CR>
+nmap <leader>gh :action Vcs.ShowHistoryForBlock<CR>
+nmap <leader>gd :action Compare.Selected<CR>
+nmap <leader>gB :action Git.CompareWithBranch<CR>
+
+" Files
+nmap <leader>fc :action GotoClass<CR>
+nmap <leader>fr :action RecentFiles<CR>
+
+" Search
+nmap <leader>sg :action FindInPath<CR>
+nmap <leader>ss :action FileStructurePopup<CR>
+nmap <leader>st :action ActivateTODOToolWindow<CR>
+
+"Test
+map <leader>tn :action RunClass<CR>
+map <leader>td :action Debug<CR>
+map <leader>db :action ToggleLineBreakpoint<CR>
+map <leader>dB :action ViewBreakpoints<CR>
+map <leader>dm :action XDebugger.MuteBreakpoints<CR>
+map <leader>dD :action XDebugger.RemoveAllBreakpoints<CR>
+
+" Run / Debug
+map <leader>dr :action Debug<CR>
+map <leader>dd :action Run<CR>
+map <leader>dc :action Resume<CR>        " Continue
+map <leader>dq :action Stop<CR>
+
+" Stepping
+map <leader>dn :action StepOver<CR>
+map <leader>di :action StepInto<CR>
+map <leader>do :action StepOut<CR>
+
+" Evaluate
+map <leader>de :action QuickEvaluateExpression<CR>
+
+" Debug tool windows
+map <leader>dv :action DebuggerViewBreakpoints<CR>
+map <leader>dw :action ActivateDebugToolWindow<CR>
+
+map <leader>e :action HideAllWindows<CR>
+nmap <A-j> :action MoveLineDown<CR>
+nmap <A-k> :action MoveLineUp<CR>
+vmap <A-j> :action MoveLineDown<CR>
+vmap <A-k> :action MoveLineUp<CR>
+nmap <leader>+ :action EditorIncreaseFontSize<CR>
+nmap <leader>- :action EditorDecreaseFontSize<CR>
+nmap <leader>0 :action ResetFontSize<CR>
+nmap <Tab> :action NextTab<CR>
+nmap <S-Tab> :action PreviousTab<CR>
+nmap <leader>x :action ToggleZenMode<CR>
+
+" Flash Plugin
+nmap s <Action>(flash.search)
+xmap s <Action>(flash.search)
+
+" Special mappings
+nmap * :action FindWordAtCaret<CR>
+nmap # :action FindWordAtCaretBack<CR>
+vnoremap y "+y
+nnoremap yy "+yy
+nnoremap Y "+Y
+vnoremap d "+d
+vnoremap x "+x
+" Whole buffer mappings
+nnoremap yig ggVGy
+nnoremap dig ggVGd
+nnoremap vig ggVG
+nnoremap viq vi"
+nnoremap yiq yi"
+nnoremap diq di"
+nnoremap ciq ci"
+nmap [[ :action EditorCodeBlockStart<CR>
+nmap ]] :action EditorCodeBlockEnd<CR>
+" Match brace/paren (like % in Vim)
+nmap % :action EditorMatchBrace<CR>
+
+" Jump to start of code block (like [%)
+nmap [% :action EditorCodeBlockStart<CR>
+
+" Jump to end of code block (like ]%)
+nmap ]% :action EditorCodeBlockEnd<CR>
+" Clear search highlight
+nnoremap <esc> :nohlsearch<CR><esc>
+" Quickscope Plugin
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_accepted_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+" Tools
+nmap <leader>gg :action TUILauncher.lazygit<CR>
+nmap <leader>fy :action TUILauncher.yazi<CR>
