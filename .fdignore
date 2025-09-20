@@ -1,0 +1,53 @@
+*.map
+.antigen
+.cache
+.cargo
+.config
+.config/raycast/extensions/**
+.config/fabric/**
+.dotfiles/**
+.gradle
+.kube
+.git
+.local
+.localized
+.m2
+.nvm
+.npm
+.oh-my-zsh
+.Trash
+.rewrite-cache
+.rustup
+.sbt
+.venv
+.vscode
+.docker
+gcloud
+Google Drive
+Library
+Pictures
+pipx
+Movies
+Music
+node_modules
+# Ignore build artifacts and large intermediate directories
+sources/**/tmp/
+sources/**/build*/
+sources/**/downloads/
+sources/**/sstate-cache/
+sources/**/oe-workdir/
+sources/**/work/
+sources/**/pkgdata/
+sources/**/sysroots/
+sources/**/sysroots-components/
+
+# Ignore Python bytecode and cache
+sources/**/__pycache__/
+sources/**/*.pyc
+sources/**/*.pyo
+
+# Ignore VCS metadata in submodules (safe for search tools)
+sources/**/.git/
+
+# Optionally, ignore patches if you never search them
+# sources/**/*.patch
