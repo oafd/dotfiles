@@ -1,0 +1,42 @@
+theme=Catppuccin Mocha
+
+font-family=FiraCode Nerd Font
+font-size=15.5
+font-thicken=true
+adjust-cell-height = 15%
+title=" "
+background-opacity=0.89
+background-blur = 30
+#keybind = global:cmd+s=toggle_quick_terminal
+
+macos-icon = glass
+macos-titlebar-style = tabs
+macos-option-as-alt = left
+macos-auto-secure-input = false
+macos-secure-input-indication = false
+
+confirm-close-surface=false
+mouse-hide-while-typing=true
+
+focus-follows-mouse = true
+
+window-padding-x = 10
+window-padding-y = 5
+window-decoration = auto
+
+cursor-color = #cba6f7
+cursor-text = black
+
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = false
+clipboard-read = allow
+clipboard-write = allow
+
+mouse-scroll-multiplier = 2
+
+copy-on-select = clipboard
+
+unfocused-split-opacity=0.5
+unfocused-split-fill=#12131F
+
+split-divider-color=#F5C2E7

@@ -1,0 +1,49 @@
+lastupdatecheck: 1745267218
+recentrepos:
+    - /Users/oscarf/dotfiles
+    - /Users/oscarf/.dotfiles
+    - /Users/oscarf/kiwigrid/projects/thing-telemetry-processor
+    - /Users/oscarf/kiwigrid/projects/flux-kiwios
+    - /Users/oscarf/kiwigrid/projects/rpc-adapter
+    - /Users/oscarf/kiwigrid/projects/gateway-registry
+    - /Users/oscarf/kiwigrid/projects/fabservice
+    - /Users/oscarf/kiwigrid/projects/connector
+    - /Users/oscarf/kiwigrid/projects/remote-access-http-proxy
+    - /Users/oscarf/kiwigrid/projects/hono-client-rs
+    - /Users/oscarf/kiwigrid/projects/vpn-manager
+    - /Users/oscarf/kiwigrid/projects/thing-event-processor
+    - /Users/oscarf/kiwigrid/projects/edge-releases
+    - /Users/oscarf/kiwigrid/projects/kiwios-events
+    - /Users/oscarf/kiwigrid/projects/osgi-diagnostic-tools
+    - /Users/oscarf/kiwigrid/projects/thing-binding-version-service
+    - /Users/oscarf/kiwigrid/projects/maven-parent
+    - /Users/oscarf/kiwigrid/projects/kiwios-device-runtime
+    - /Users/oscarf/kiwigrid/projects/karaf-parent
+    - /Users/oscarf/.local/share/nvim/lazy/catppuccin
+    - /Users/oscarf/kiwigrid/projects/kiwios-metric-balancing-rest
+    - /Users/oscarf/kiwigrid/projects/kiwios-metric-balancing
+    - /Users/oscarf/kiwigrid/projects/gateway-stage-mover
+    - /Users/oscarf/kiwigrid/projects/audit-log-service
+    - /Users/oscarf/kiwigrid/projects/kiwios-setup-network-settings
+    - /Users/oscarf/kiwigrid/projects/kiwios-setup-backend
+    - /Users/oscarf/kiwigrid/projects/prodx-datacollector
+    - /Users/oscarf/kiwigrid/oscar.fagundez
+    - /Users/oscarf/kiwigrid/projects/scripts-misc
+    - /Users/oscarf/kiwigrid/projects/hawkbit-gateway-syncer
+    - /Users/oscarf/kiwigrid/projects/gwr-hawkbit-e2e-tests
+    - /Users/oscarf/.oh-my-zsh
+    - /Users/oscarf/.local/share/nvim/lazy/mason-lspconfig.nvim
+    - /Users/oscarf/rust/hello
+    - /Users/oscarf/.local/share/nvim/lazy/LazyVim
+    - /Users/oscarf/kiwigrid/projects/hawkbit-proxy
+startuppopupversion: 5
+didshowhunkstaginghint: true
+lastversion: 0.54.2
+customcommandshistory:
+    - update gateway-lifecycle-tracker cronjobs to run between 1am and 5am
+    - w
+    - git diff
+    - 'KOE-5345: Add authproxyworload'
+    - 'KOE-5345: fixed typo with fabrication service url'
+    - add chezmoiignore
+hidecommandlog: false
