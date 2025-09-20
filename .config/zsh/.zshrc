@@ -20,6 +20,7 @@ bindkey -M viins '^[^[[D' backward-word
 bindkey -M viins '^[^[[C' forward-word
 bindkey -M vicmd '^[^[[D' backward-word
 bindkey -M vicmd '^[^[[C' forward-word
+
 # ─────────────────────────────────────────────────────────────
 # Locale & Editor
 # ─────────────────────────────────────────────────────────────
