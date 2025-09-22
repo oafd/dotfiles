@@ -1,9 +1,9 @@
 lastupdatecheck: 1745267218
 recentrepos:
     - /Users/oscarf/dotfiles
+    - /Users/oscarf/kiwigrid/projects/gateway-registry
     - /Users/oscarf/kiwigrid/projects/flux-kiwios
     - /Users/oscarf/kiwigrid/projects/fabservice
-    - /Users/oscarf/kiwigrid/projects/gateway-registry
     - /Users/oscarf/kiwigrid/projects/thing-telemetry-processor
     - /Users/oscarf/kiwigrid/projects/rpc-adapter
     - /Users/oscarf/kiwigrid/projects/connector
@@ -37,7 +37,7 @@ recentrepos:
     - /Users/oscarf/kiwigrid/projects/hawkbit-proxy
 startuppopupversion: 5
 didshowhunkstaginghint: true
-lastversion: 0.54.2
+lastversion: 0.55.1
 customcommandshistory:
     - update gateway-lifecycle-tracker cronjobs to run between 1am and 5am
     - w

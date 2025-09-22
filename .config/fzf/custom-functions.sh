@@ -193,7 +193,8 @@ ksecret() {
   tsv="$(
     kubectl -n "$ns" --context "$ctx" get secret "$name" -o json \
       | jq -r '.data
-               | del(.["ca.crt"], .["secret-old"])
+              | with_entries(select(.key | test("\\.(crt|pem|key)$") | not))
+               | del(.["secret-old"])
                | map_values(@base64d)
                | to_entries[]
                | "\(.key)\t\(.value)"'
@@ -209,7 +210,7 @@ ksecret() {
   done <<< "$tsv"
 
   if (( ${#exported[@]} == 0 )); then
-    print -u2 "ksecret: no exportable fields in secret '$name' (after ignoring ca.crt and secret-old)"
+    print -u2 "ksecret: no exportable fields in secret '$name' (after ignoring *.crt, *.pem and secret-old)"
     return 1
   fi
 

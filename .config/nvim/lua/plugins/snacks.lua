@@ -1,26 +1,12 @@
 return {
   "folke/snacks.nvim",
-  priority = 1000,
   lazy = false,
   ---@type snacks.Config
   opts = {
     explorer = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
-    terminal = {
-      enabled = true,
-      win = {
-        position = "float",
-        border = "rounded",  -- "single", "double", "rounded", "solid", "shadow"
-        title_pos = "center",
-        relative = "editor",
-        style = "minimal",
-        width = 0.9,
-        height = 0.9,
-        row = 0.05,           -- 5% from top
-        col = 0.05,           -- 5% from left
-      },
-    },
+    terminal = { enabled = true, win = { position = "float", border = "rounded", }, },
     notifier = { enabled = true, timeout = 3000, style = "compact" },
     scope = { enabled = true },
     scroll = { enabled = true },

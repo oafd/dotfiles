@@ -60,6 +60,7 @@ nmap <leader>gB :action Git.CompareWithBranch<CR>
 " Files
 nmap <leader>fc :action GotoClass<CR>
 nmap <leader>fr :action RecentFiles<CR>
+nmap <leader>fn :action NewClass<CR>
 
 " Search
 nmap <leader>sg :action FindInPath<CR>

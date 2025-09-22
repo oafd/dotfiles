@@ -117,7 +117,6 @@ if [[ $- == *i* ]] && [[ -t 1 ]]; then
     bindkey -M viins '^R' fzf-history-widget
     bindkey -M vicmd '^R' fzf-history-widget
   }
-  # ZSH_THEME="powerlevel10k/powerlevel10k"
   COMPLETION_WAITING_DOTS="true"
   plugins=(git fzf fzf-tab zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode)
   source "$ZSH/oh-my-zsh.sh"   # compinit + ZLE widgets
@@ -143,7 +142,6 @@ if [[ $- == *i* ]] && [[ -t 1 ]]; then
   # Prompt & widgets
   eval "$(starship init zsh)"
   eval "$(zoxide init zsh --cmd cd)"
-  # eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
 fi
 
 # ─────────────────────────────────────────────────────────────
