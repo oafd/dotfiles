@@ -1,8 +1,9 @@
 lastupdatecheck: 1745267218
 recentrepos:
     - /Users/oscarf/dotfiles
-    - /Users/oscarf/kiwigrid/projects/gateway-registry
     - /Users/oscarf/kiwigrid/projects/flux-kiwios
+    - /Users/oscarf/kiwigrid/projects/edge-releases
+    - /Users/oscarf/kiwigrid/projects/gateway-registry
     - /Users/oscarf/kiwigrid/projects/fabservice
     - /Users/oscarf/kiwigrid/projects/thing-telemetry-processor
     - /Users/oscarf/kiwigrid/projects/rpc-adapter
@@ -11,7 +12,6 @@ recentrepos:
     - /Users/oscarf/kiwigrid/projects/hono-client-rs
     - /Users/oscarf/kiwigrid/projects/vpn-manager
     - /Users/oscarf/kiwigrid/projects/thing-event-processor
-    - /Users/oscarf/kiwigrid/projects/edge-releases
     - /Users/oscarf/kiwigrid/projects/kiwios-events
     - /Users/oscarf/kiwigrid/projects/osgi-diagnostic-tools
     - /Users/oscarf/kiwigrid/projects/thing-binding-version-service

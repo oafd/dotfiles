@@ -28,7 +28,7 @@ Macos = "󰀵"
 show_always = true
 style_user = "bg:text fg:crust"
 style_root = "bg:text fg:crust"
-format = '[ $user]($style)'
+format = '[ $user ]($style)'
 
 [directory]
 style = "bg:blue fg:crust"
@@ -36,14 +36,14 @@ format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
-[directory.substitutions]
-"~/Documents" = "󰈙"
-"~/Downloads" = ""
-"~/Music" = "󰝚"
-"~/Pictures" = ""
-"~/.config" = ""
-"~/kiwigrid/projects" = " "
-"~" = ""
+# [directory.substitutions]
+# "~/Documents" = "󰈙"
+# "~/Downloads" = ""
+# "~/Music" = "󰝚"
+# "~/Pictures" = ""
+# "~/.config" = ""
+# "~/kiwigrid/projects" = " "
+# "~" = ""
 
 [git_branch]
 symbol = ""
