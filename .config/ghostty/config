@@ -1,12 +1,13 @@
 theme=Catppuccin Mocha
 
 font-family=FiraCode Nerd Font
-font-size=15.5
+font-size=16.5
 font-thicken=true
 adjust-cell-height = 15%
 title=" "
-background-opacity=0.89
-background-blur = 30
+background = #000000
+background-opacity=0.70
+background-blur = 40
 #keybind = global:cmd+s=toggle_quick_terminal
 
 macos-icon = glass
