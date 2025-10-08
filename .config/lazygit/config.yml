@@ -1,0 +1,10 @@
+keybinding:
+  # optional: stop TAB from moving between panes
+  universal:
+
+    nextBlock-alt2: <disabled>
+    prevBlock-alt2: <disabled>
+    nextPage: <disabled>
+    prevPage: <disabled>
+    nextTab: '<tab>'
+    prevTab: '<backtab>' # or '<shift-tab>' if your terminal sends that
