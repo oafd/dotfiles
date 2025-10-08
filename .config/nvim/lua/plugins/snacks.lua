@@ -3,6 +3,7 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    dashboard = { enabled = false },
     explorer = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
@@ -19,7 +20,16 @@ return {
     { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
     { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
-    { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
+    { "<leader>sG", function() Snacks.picker.grep({ cwd = vim.fn.expand("~") }) end, desc = "Grep (Home)" },
     { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
-  }
+  },
+--   init = function()
+--   -- Make <Esc> leave terminal-insert mode
+--   vim.api.nvim_create_autocmd("TermOpen", {
+--     callback = function(ev)
+--       local o = { buffer = ev.buf, silent = true }
+--       vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], o)
+--     end,
+--   })
+-- end,
 }

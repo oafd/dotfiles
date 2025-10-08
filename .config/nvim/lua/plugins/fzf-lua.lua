@@ -5,11 +5,6 @@ return {
       local fzf = require("fzf-lua")
       local actions = require("fzf-lua.actions")
 
-      -- one place to edit your hints
-      local header = table.concat({
-        "<C-y> copy paths",
-      }, "| ")
-
       fzf.setup({
         files = {
           cmd = "fd . --type f --hidden --follow | sort",
@@ -21,7 +16,6 @@ return {
         },
         fzf_opts = {
           ["--tiebreak"] = "begin,index",
-          ["--header"] = header,        -- 👈 shows the menu
           ["--header-first"] = false,    -- put it above the prompt
         },
         actions = {
