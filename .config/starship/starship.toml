@@ -60,7 +60,7 @@ style = "fg:lavender bg:black"
 format = "[ ](black)[ $time]($style)[](black)"
 
 [os.symbols]
-Macos = " "
+Macos = ""
 Debian = "󰣚"
 
 [directory]
