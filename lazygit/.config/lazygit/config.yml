@@ -1,3 +1,8 @@
+os:
+  edit: "nvim +{{line}} -- {{filename}}"
+
+promptToReturnFromSubprocess: false
+notARepository: 'skip'   # 'prompt' | 'create' | 'skip' | 'quit'
 keybinding:
   # optional: stop TAB from moving between panes
   universal:
