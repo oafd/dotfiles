@@ -1,29 +1,11 @@
-# set -o vi
-# Home/End (works if your terminal sends \e[H / \e[F)
-bindkey -M viins '^[[H' beginning-of-line
-bindkey -M viins '^[[F' end-of-line
-bindkey -M vicmd '^[[H' beginning-of-line
-bindkey -M vicmd '^[[F' end-of-line
 
-# Also map Ctrl-A / Ctrl-E in insert mode (handy on mac)
-bindkey -M viins '^A' beginning-of-line
+# ─────────────────────────────────────────────────────────────
+# Key Bindings
+# ─────────────────────────────────────────────────────────────
 bindkey -M viins '^E' end-of-line
-
-# Option/Alt + Left/Right → word motions (most mac terminals send ESC-b / ESC-f)
-bindkey -M viins '^[b' backward-word
-bindkey -M viins '^[f' forward-word
-bindkey -M vicmd '^[b' backward-word
-bindkey -M vicmd '^[f' forward-word
-
-# Some terminals send different sequences for Option+Arrows; cover those too:
-bindkey -M viins '^[^[[D' backward-word
-bindkey -M viins '^[^[[C' forward-word
-bindkey -M vicmd '^[^[[D' backward-word
-bindkey -M vicmd '^[^[[C' forward-word
-
-# ctrl r works in normal/insert modes
-bindkey -M viins '^R' fzf-history-widget
-bindkey -M vicmd '^R' fzf-history-widget
+bindkey -M emacs '^W' edit-command-line
+bindkey '^Q' push-line-or-edit
+bindkey '^Z' undo
 
 
 # ─────────────────────────────────────────────────────────────
@@ -117,7 +99,7 @@ if [[ $- == *i* ]] && [[ -t 1 ]]; then
     bindkey -M vicmd '^R' fzf-history-widget
   }
   COMPLETION_WAITING_DOTS="true"
-  plugins=(git fzf fzf-tab zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode)
+  plugins=(git fzf fzf-tab zsh-autosuggestions zsh-syntax-highlighting )
   source "$ZSH/oh-my-zsh.sh"   # compinit + ZLE widgets
 
   # Kubectl completion (after OMZ so compinit is ready)
