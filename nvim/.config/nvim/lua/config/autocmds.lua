@@ -6,6 +6,7 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
 vim.api.nvim_create_user_command("CleanLogs", function()
   vim.cmd([[%s/\\n/\r/ge]])
   vim.cmd([[%s/\\t/    /ge]])
@@ -14,3 +15,13 @@ end, { desc = "Convert \\n and \\t into real newlines and tabs" })
 vim.api.nvim_create_user_command("PrettyResponse", function()
   vim.cmd([[%!sed -E 's/\x1B\[[0-9;]*[A-Za-z]//g' | sed 's/^.*response//' | jq .]])
 end, { desc = "Strip ANSI, drop log prefix, and pretty-print JSON response" })
+
+-- Highlight all URLs in the buffer
+vim.api.nvim_create_autocmd({ "BufEnter", "TextChanged", "TextChangedI" }, {
+  pattern = "*",
+  callback = function()
+    -- match URLs starting with http or https
+    vim.fn.matchadd("Underlined", [[https\?://[[:alnum:]%./?=_#&\-%~+@:,]*]])
+  end,
+})
+vim.api.nvim_set_hl(0, "Underlined", { underline = true, fg = "#89b4fa" })

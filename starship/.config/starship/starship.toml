@@ -56,7 +56,7 @@ style  = ""          # no bg so you don't get a colored bar
 [time]
 disabled = false
 time_format = "%H:%M"
-style = "fg:lavender bg:black"
+style = "fg:blue bg:black"
 format = "[ ](black)[ $time]($style)[](black)"
 
 [os.symbols]
@@ -64,7 +64,7 @@ Macos = ""
 Debian = "󰣚"
 
 [directory]
-style = "sapphire"
+style = "blue"
 format = "[ $path ]($style)"
 truncation_length = 5
 # truncation_symbol = "…/"
@@ -82,7 +82,7 @@ style = "bg:none fg:text"
 
 [git_branch]
 symbol = "[](black) "
-style = "fg:lavender bg:black"
+style = "fg:yellow bg:black"
 format =  'on [$symbol$branch]($style)[](black)'
 
 [git_status]
@@ -100,7 +100,7 @@ vimcmd_symbol = '[](bold fg:yellow)'
 [cmd_duration]
 disabled = false
 show_milliseconds = false
-style = "fg:lavender bg:black"
+style = "fg:mauve bg:black"
 format = "[](black)[󰔛 $duration]($style)[](black)"
 show_notifications = true
 min_time_to_notify = 45000

@@ -5,9 +5,9 @@ font-size=16.5
 font-thicken=true
 adjust-cell-height = 15%
 title=" "
-background = #000000
-background-opacity=0.70
-background-blur = 40
+background = #13121a
+#background-opacity=0.80
+#background-blur = 50
 #keybind = global:cmd+s=toggle_quick_terminal
 
 macos-icon = glass

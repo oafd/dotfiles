@@ -38,6 +38,7 @@ export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
 export PATH="/opt/homebrew/bn:$PATH"
 export PATH="/Applications/IntelliJ IDEA CE.app/Contents/MacOS:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$JAVA_HOME/bin:$PATH"
 # ─────────────────────────────────────────────────────────────
 # FZF & FD
 # ─────────────────────────────────────────────────────────────

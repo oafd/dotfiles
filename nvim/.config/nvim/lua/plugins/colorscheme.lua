@@ -11,7 +11,7 @@ return {
         return {
           WinSeparator = { fg = colors.blue, bg = "NONE" },
           NormalFloat = { bg = "NONE" },
-          FloatBorder = { bg = "NONE" },
+          FloatBorder = { bg = "NONE", fg = colors.blue },
           Visual = { bg = colors.surface0, fg = "NONE" },
         }
       end,

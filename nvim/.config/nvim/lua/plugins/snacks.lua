@@ -3,7 +3,7 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    dashboard = { enabled = false },
+    dashboard = { enabled = true },
     explorer = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
@@ -23,13 +23,4 @@ return {
     { "<leader>sG", function() Snacks.picker.grep({ cwd = vim.fn.expand("~") }) end, desc = "Grep (Home)" },
     { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
   },
---   init = function()
---   -- Make <Esc> leave terminal-insert mode
---   vim.api.nvim_create_autocmd("TermOpen", {
---     callback = function(ev)
---       local o = { buffer = ev.buf, silent = true }
---       vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], o)
---     end,
---   })
--- end,
 }

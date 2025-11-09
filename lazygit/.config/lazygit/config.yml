@@ -1,6 +1,9 @@
 os:
   edit: "nvim +{{line}} -- {{filename}}"
 
+services:
+  "bitbucket.dev.kiwigrid.com": "bitbucketServer:bitbucket.dev.kiwigrid.com"
+
 promptToReturnFromSubprocess: false
 notARepository: 'skip'   # 'prompt' | 'create' | 'skip' | 'quit'
 keybinding:
