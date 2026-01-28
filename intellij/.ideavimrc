@@ -60,8 +60,8 @@ nmap <leader>gB :action Git.CompareWithBranch<CR>
 " Files
 nmap <leader>fc :action GotoClass<CR>
 nmap <leader>fr :action RecentFiles<CR>
-nmap <leader>fn :action NewClass<CR>
-
+" nmap <leader>fn :action NewClass<CR>
+nmap <leader>fn :action NewElement<CR>
 " Search
 nmap <leader>sg :action FindInPath<CR>
 nmap <leader>ss :action FileStructurePopup<CR>
@@ -105,10 +105,6 @@ nmap <Tab> :action NextTab<CR>
 nmap <S-Tab> :action PreviousTab<CR>
 nmap <leader>x :action ToggleZenMode<CR>
 
-" Flash Plugin
-nmap s <Action>(flash.search)
-xmap s <Action>(flash.search)
-
 " Special mappings
 nmap * :action FindWordAtCaret<CR>
 nmap # :action FindWordAtCaretBack<CR>
@@ -137,10 +133,10 @@ nmap [% :action EditorCodeBlockStart<CR>
 nmap ]% :action EditorCodeBlockEnd<CR>
 " Clear search highlight
 nnoremap <esc> :nohlsearch<CR><esc>
-" Quickscope Plugin
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-let g:qs_accepted_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 " Tools
 nmap <leader>gg :action TUILauncher.lazygit<CR>
 nmap <leader>fy :action TUILauncher.yazi<CR>
+
+" Terminal
+map <C-q> :action ToggleToolWindow Terminal<CR>

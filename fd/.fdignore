@@ -1,19 +1,24 @@
 *.map
 .antigen
+.bun
 .cache
 .cargo
-.config
+# .config
 .config/raycast/extensions/**
 .config/fabric/**
-.dotfiles/**
+# .dotfiles/**
 .gradle
+.gemini
 .kube
 .git
+# .lima
+.lpass
 .local
 .localized
 .m2
 .nvm
 .npm
+.ollama
 .oh-my-zsh
 .Trash
 .rewrite-cache

@@ -1,16 +1,25 @@
 theme=Catppuccin Mocha
-
+custom-shader = ~/.config/ghostty/shaders/cursor_smear_fade.glsl
+# custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl
+# custom-shader = ~/.config/ghostty/shaders/cursor_smear_less_animated.glsl
+# custom-shader = ~/.config/ghostty/shaders/sparks-from-fire.glsl
+#custom-shader = ~/.config/ghostty/shaders/cursor_smear_gradient.glsl
+#custom-shader = ~/.config/ghostty/shaders/cursor_blaze_no_trail.glsl
+keybind = cmd+ctrl+left=resize_split:left,20
+keybind = cmd+ctrl+right=resize_split:right,20
+keybind = cmd+ctrl+up=resize_split:up,20
+keybind = cmd+ctrl+down=resize_split:down,20
 font-family=FiraCode Nerd Font
-font-size=16.5
+font-size=16
 font-thicken=true
 adjust-cell-height = 15%
 title=" "
 background = #13121a
-#background-opacity=0.80
-#background-blur = 50
-#keybind = global:cmd+s=toggle_quick_terminal
+#background = #000000
+background-opacity=0.80
+background-blur = 75
 
-macos-icon = glass
+# macos-icon = glass
 macos-titlebar-style = tabs
 macos-option-as-alt = left
 macos-auto-secure-input = false
@@ -21,11 +30,12 @@ mouse-hide-while-typing=true
 
 focus-follows-mouse = true
 
-window-padding-x = 10
+window-padding-x = 5
 window-padding-y = 5
 window-decoration = auto
 
-cursor-color = #cba6f7
+# cursor-color = #cba6f7
+# cursor-color = #89B4FA
 cursor-text = black
 
 clipboard-trim-trailing-spaces = true
@@ -40,4 +50,6 @@ copy-on-select = clipboard
 unfocused-split-opacity=0.5
 unfocused-split-fill=#12131F
 
-split-divider-color=#F5C2E7
+# split-divider-color=#CBA6F7
+# split-divider-color=#89B4FA
+split-divider-color=#454759

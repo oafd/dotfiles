@@ -1,9 +1,7 @@
 
 command_timeout = 3600
 
-# "$schema" = 'https://starship.rs/config-schema.json'
-
-add_newline = false 
+add_newline = false
 
 format = """
 $os\
@@ -47,16 +45,17 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+black = "#13121a"
 
 # ── Spacer to push time to the right ─────────────────
 [fill]
-symbol = " "         # plain spaces
-style  = ""          # no bg so you don't get a colored bar
+symbol = " " # plain spaces
+style = ""   # no bg so you don't get a colored bar
 
 [time]
 disabled = false
 time_format = "%H:%M"
-style = "fg:blue bg:black"
+style = "fg:blue bg:none"
 format = "[ ](black)[ $time]($style)[](black)"
 
 [os.symbols]
@@ -83,13 +82,13 @@ style = "bg:none fg:text"
 [git_branch]
 symbol = "[](black) "
 style = "fg:yellow bg:black"
-format =  'on [$symbol$branch]($style)[](black)'
+format = 'on [$symbol$branch]($style)[](black)'
 
 [git_status]
 format = ' [($all_status$ahead_behind )]($style)'
 
 [line_break]
-disabled = false 
+disabled = false
 
 [character]
 disabled = false
@@ -100,7 +99,7 @@ vimcmd_symbol = '[](bold fg:yellow)'
 [cmd_duration]
 disabled = false
 show_milliseconds = false
-style = "fg:mauve bg:black"
+style = "fg:mauve bg:none"
 format = "[](black)[󰔛 $duration]($style)[](black)"
 show_notifications = true
 min_time_to_notify = 45000

@@ -3,16 +3,21 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,
-    priority = 1000,
     opts = {
       flavour = "mocha",
       transparent_background = true,
-      custom_highlights = function(colors)
+      styles = {
+        comments = { "italic" },
+        keywords = {},
+        functions = { "italic" },
+        types = {},
+        strings = {},
+      },
+
+      custom_highlights = function()
         return {
-          WinSeparator = { fg = colors.blue, bg = "NONE" },
           NormalFloat = { bg = "NONE" },
-          FloatBorder = { bg = "NONE", fg = colors.blue },
-          Visual = { bg = colors.surface0, fg = "NONE" },
+          FloatBorder = { bg = "NONE" },
         }
       end,
     },

@@ -11,7 +11,7 @@ bindkey '^Z' undo
 # ─────────────────────────────────────────────────────────────
 # Locale & Editor
 # ─────────────────────────────────────────────────────────────
-export EDITOR="nvim"
+export EDITOR="/opt/homebrew/bin/nvim"
 export VISUAL="$EDITOR"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
@@ -19,11 +19,15 @@ export DOCKER_HOST="unix://${HOME}/.config/colima/default/docker.sock"
 export TESTCONTAINERS_RYUK_DISABLED=true
 export TESTCONTAINERS_STARTUP_TIMEOUT=120
 export SOPS_EDITOR="$EDITOR"
+export GOOGLE_CLOUD_PROJECT_ID="kiwi-infra"
+export NODE_NO_WARNINGS=1
 
 # ─────────────────────────────────────────────────────────────
 # Path
 # ─────────────────────────────────────────────────────────────
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$JAVA_HOME/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
@@ -35,10 +39,7 @@ export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/mysql/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
-export PATH="/opt/homebrew/bn:$PATH"
 export PATH="/Applications/IntelliJ IDEA CE.app/Contents/MacOS:$PATH"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$JAVA_HOME/bin:$PATH"
 # ─────────────────────────────────────────────────────────────
 # FZF & FD
 # ─────────────────────────────────────────────────────────────
@@ -47,17 +48,18 @@ export HISTSIZE=50000
 export SAVEHIST=50000
 setopt HIST_REDUCE_BLANKS
 
-export FZF_CTRL_T_COMMAND="fd . \$HOME --type f --type d --hidden --color=always | sort"
+export FZF_CTRL_T_COMMAND="fd . --type f --type d --hidden --color=always | sort"
 export FZF_CTRL_T_OPTS="--prompt=' Files > ' \
   --margin=0,2,0,2 \
   --height=70% \
-  --header='ctrl-g: Only dirs | ctrl-h: in CWD | ctrl-o: Open in nvim' \
+  --header='ctrl-g: Dirs | ctrl-h: ~/ | ctrl-o: nvim | ctrl-s: toggle preview' \
   --bind '?:toggle-preview' \
+  --bind 'ctrl-s:toggle-preview' \
   --bind 'shift-down:preview-down+preview-down+preview-down+preview-down+preview-down' \
   --bind 'shift-up:preview-up+preview-up+preview-up+preview-up+preview-up' \
   --bind 'ctrl-g:reload(fd --type d --color=always | sort)' \
-  --bind 'ctrl-h:reload(fd . --type f --type d --color=always | sort)' \
-  --bind 'ctrl-t:reload(fd . \$HOME --type f --type d --color=always | sort)' \
+  --bind 'ctrl-h:reload(fd . \$HOME --type f --type d --color=always | sort)' \
+  --bind 'ctrl-t:reload(fd . --type f --type d --hidden --color=always | sort)' \
   --bind 'ctrl-o:execute(nvim {+})+abort'"
 export FZF_PREVIEW_OPTS="--preview='$HOME/.config/fzf/preview.sh {}' --preview-window=right:50%:wrap"
 export FZF_DEFAULT_COMMAND="fd . --type f --type d --hidden --color=always | sort"
@@ -156,12 +158,6 @@ alias color='pastel color'
 alias colores='pastel list'
 alias cp='cp -vi'
 alias du='dust -b -i -d 1'
-alias j11="export JAVA_HOME=`/usr/libexec/java_home -v 11`; java -version"
-alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
-alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
-alias j22="export JAVA_HOME=`/usr/libexec/java_home -v 22`; java -version"
-alias j25="export JAVA_HOME=`/usr/libexec/java_home -v 25`; java -version"
-alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
 alias jqkeys="jq 'keys_unsorted[]' | sort -u"
 alias jqs='jq -R -r "fromjson? | select(.)"'
 alias jvv="/usr/libexec/java_home -V"
@@ -187,6 +183,21 @@ source "$HOME/.config/fzf/custom-functions.sh"
 
 # Compile .zshrc if not already compiled
 [[ -s ~/.config/zsh/.zshrc.zwc ]] || zcompile ~/.config/zsh/.zshrc
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+j() {
+  local ver="$1"
+  local home
+  home="$(/usr/libexec/java_home -v "$ver" 2>/dev/null)" || return 1
+
+  export JAVA_HOME="$home"
+  export PATH="$JAVA_HOME/bin:${PATH//:$JAVA_HOME\/bin/}"  # cheap dedupe-ish
+  hash -r
+  java -version
+}
+
+j8(){  j 1.8; }
+j11(){ j 11; }
+j17(){ j 17; }
+j21(){ j 21; }
+j22(){ j 22; }
+j25(){ j 25; }
