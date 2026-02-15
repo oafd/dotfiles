@@ -37,3 +37,4 @@ vim.keymap.set("n", "gs", "]s", { desc = "Next spelling error" })
 
 -- spelling suggestions
 vim.keymap.set("n", "gS", "[s", { desc = "Previous spelling error" })
+vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])

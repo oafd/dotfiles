@@ -22,34 +22,28 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Override :cd to use zoxide
-vim.api.nvim_create_user_command("Cd", function(opts)
-  local target = table.concat(opts.fargs, " ")
-  if target == "" then
-    vim.cmd("cd ~")
+vim.api.nvim_create_user_command("Z", function(opts)
+  local query = table.concat(opts.fargs, " ")
+
+  if query == "" then
     return
   end
 
-  -- call zoxide
-  local handle = io.popen("zoxide query " .. vim.fn.shellescape(target))
+  local handle = io.popen("zoxide query " .. vim.fn.shellescape(query))
   if not handle then
     return
   end
 
-  local result = handle:read("*a")
+  local result = (handle:read("*a") or ""):gsub("%s+$", "")
   handle:close()
 
-  result = result:gsub("%s+$", "")
   if result ~= "" then
-    vim.cmd("cd " .. vim.fn.fnameescape(result))
-    vim.notify("cd → " .. result, vim.log.levels.INFO)
+    vim.cmd.cd(result)
+    -- vim.notify("cd → " .. result, vim.log.levels.INFO)
   else
-    vim.notify("zoxide: no match for " .. target, vim.log.levels.WARN)
+    vim.notify("zoxide: no match for " .. query, vim.log.levels.WARN)
   end
-end, { nargs = "*", complete = "dir" })
-
--- Make :cd call :Cd
-vim.cmd("cabbrev cd Cd")
+end, { nargs = "*", desc = "cd using zoxide" })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
@@ -66,3 +60,9 @@ vim.api.nvim_create_user_command("BufSize", function()
   local bytes = vim.api.nvim_buf_get_offset(0, vim.api.nvim_buf_line_count(0))
   print(string.format("%.2f KB", bytes / 1024))
 end, {})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "csv",
+  callback = function()
+    vim.cmd("CsvViewEnable")
+  end,
+})

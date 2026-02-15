@@ -47,47 +47,6 @@ fzf-search-paths() {
 zle -N fzf-search-paths
 bindkey '^F' fzf-search-paths
 
-jjos() {
-  local is_array=false
-  [[ "$1" == "-a" ]] && { is_array=true; shift; }
-
-  local build_object() {
-    local obj_args=("$@")
-    jq -n  "$(for arg in "${obj_args[@]}"; do
-      key="${arg%%=*}"
-      val="${arg#*=}"
-
-      # Type handling
-      if [[ "$val" == "true" || "$val" == "false" || "$val" == "null" || "$val" =~ ^-?[0-9]+(\.[0-9]+)?$ ]]; then
-        :
-      else
-        val="\"$val\""
-      fi
-
-      jq_path="$(echo "$key" | sed 's/\([^\.]*\)/"\1"/g' | sed 's/\./, /g')"
-      printf 'setpath([%s]; %s) | ' "$jq_path" "$val"
-    done | sed 's/ | $//')"
-  }
-
-  if $is_array; then
-    local object=()
-    local group=()
-    for arg in "$@"; do
-      if [[ "$arg" == "--" ]]; then
-        object+=("$(build_object "${group[@]}")")
-        group=()
-      else
-        group+=("$arg")
-      fi
-    done
-    [[ "${#group[@]}" -gt 0 ]] && object+=("$(build_object "${group[@]}")")
-    printf '[%s]\n' "$(IFS=,; echo "${object[*]}")"
-  else
-    build_object "$@"
-  fi
-}
-
-
 jwt() {
   local token
 
@@ -102,11 +61,10 @@ jwt() {
     token="$(pbpaste)"
   fi
 
-  [[ -z "$token" ]] && { echo "No token provided" >&2; return 1 }
+  [[ -z "$token" ]] && { echo "No token provided" >&2; return 1; }
 
-  local parts
-  IFS='.' parts=(${(s:.:)token})
-  local payload="${parts[2]}"
+  local payload
+  payload=$(echo "$token" | cut -d. -f2)
 
   local pad=$(( (4 - ${#payload} % 4) % 4 ))
   payload="${payload}$(printf '=%.0s' $(seq 1 $pad))"
@@ -161,58 +119,173 @@ bindkey '^[e' fzf-env-preview
 help() {
   "$@" --help 2>&1 | cat --paging=always --language=help
 }
-ksecret() {
+
+j() {
+  local ver="$1"
+  local home
+  home="$(/usr/libexec/java_home -v "$ver" 2>/dev/null)" || return 1
+
+  export JAVA_HOME="$home"
+  export PATH="$JAVA_HOME/bin:${PATH//:$JAVA_HOME\/bin/}"  # cheap dedupe-ish
+  hash -r
+  java -version
+}
+
+j8(){  j 1.8; }
+j11(){ j 11; }
+j17(){ j 17; }
+j21(){ j 21; }
+j22(){ j 22; }
+j25(){ j 25; }
+
+_kmysql_usage() {
+  cat <<EOF
+Usage: kmysql [options] [secret_filter]
+
+Connect to a MySQL database in Kubernetes.
+
+Options:
+  -c <context>      Kubernetes context (default: qa)
+  -n <namespace>    Kubernetes namespace (default: kiwios)
+  -D <db_name>      Database name
+  -u <user>         Database user
+  -p <password>     Database password
+  -h <host>         Database host (default: 127.0.0.1)
+  -P <port>         Database port (default: 3306)
+  -e <command>      Execute command instead of interactive shell
+  --help            Display this help message
+EOF
+}
+
+kmysql() {
   emulate -L zsh
   setopt pipefail
 
-  local ns="kiwios" ctx="qa" filter="" name
+  local ctx="qa"
+  local ns="kiwios"
+  local db_name=""
+  local user=""
+  local password=""
+  local host="127.0.0.1"
+  local port="3306"
+  local command=""
+  local secret_filter=""
 
-  # Flags: -n/--namespace, --context, [optional substring filter]
   while (( $# )); do
     case "$1" in
-      -n|--namespace) ns="$2"; shift 2 ;;
-      --context)      ctx="$2"; shift 2 ;;
-      *)              filter="$1"; shift ;;
+      -c) ctx="$2"; shift 2 ;;
+      -n) ns="$2"; shift 2 ;;
+      -D) db_name="$2"; shift 2 ;;
+      -u) user="$2"; shift 2 ;;
+      -p) password="$2"; shift 2 ;;
+      -h) host="$2"; shift 2 ;;
+      -P) port="$2"; shift 2 ;;
+      -e) command="$2"; shift 2;;
+      --help) _kmysql_usage; return 0 ;;
+      *) secret_filter="$1"; shift ;;
     esac
   done
 
-  # Pick a secret with fzf (Esc cleanly aborts)
-  name="$(
-    kubectl -n "$ns" --context "$ctx" get secret --no-headers 2>/dev/null \
-      | awk '{print $1}' \
-      | { [[ -n "$filter" ]] && grep -i -- "$filter" || cat; } \
-      | fzf --prompt="Secret ($ns/$ctx)> " --height=15 --reverse \
-            --preview "kubectl -n $ns --context $ctx get secret {} -o json \
-                       | jq -r '.data | map_values(@base64d)'" \
-            --preview-window=right:60%
-  )" || return 130
-  [[ -n $name ]] || return 130
+  echo "Using context: $ctx, namespace: $ns"
 
-  # Decode and emit all keys except 'ca.crt' and 'secret-old'
-  local tsv
-  tsv="$(
-    kubectl -n "$ns" --context "$ctx" get secret "$name" -o json \
-      | jq -r '.data
-              | with_entries(select(.key | test("\\.(crt|pem|key)$") | not))
-               | del(.["secret-old"])
-               | map_values(@base64d)
-               | to_entries[]
-               | "\(.key)\t\(.value)"'
-  )" || { print -u2 "ksecret: failed to fetch/decode $name"; return 1; }
-
-  # Export each key
-  local exported=() key val
-  while IFS=$'\t' read -r key val; do
-    [[ -z $key ]] && continue
-    typeset -g "$key"="$val"
-    export "$key"
-    exported+=("$key")
-  done <<< "$tsv"
-
-  if (( ${#exported[@]} == 0 )); then
-    print -u2 "ksecret: no exportable fields in secret '$name' (after ignoring *.crt, *.pem and secret-old)"
-    return 1
+  if [[ -z "$db_name" ]]; then
+    db_name=$(kubectl -n "$ns" --context "$ctx" get sqldatabases -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | fzf --prompt="Select a database > " --preview-window=hidden --height 50%)
+    if [[ -z "$db_name" ]]; then
+      echo "No database selected. Exiting."
+      return 1
+    fi
   fi
 
-  print "Exported: ${exported[*]} from $name (ns=$ns ctx=$ctx)"
+  if [[ -z "$user" ]]; then
+    local possible_users=("$db_name" "$db_name-db" "$db_name-user")
+    for u in "${possible_users[@]}"; do
+      if kubectl -n "$ns" --context "$ctx" get sqluser "$u" &>/dev/null; then
+        user="$u"
+        break
+      fi
+    done
+
+    if [[ -z "$user" ]]; then
+      user=$(kubectl -n "$ns" --context "$ctx" get sqlusers -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | fzf --prompt="Select a user > " --preview-window=hidden --height 50%)
+      if [[ -z "$user" ]]; then
+        echo "No user selected. Exiting."
+        return 1
+      fi
+    fi
+  fi
+
+  local databasePassword
+  if [[ -n "$password" ]]; then
+    databasePassword="$password"
+  else
+    local secret_names=("$db_name" "$db_name-secret" "$db_name-mysql")
+    local ksecret_name=""
+    local secret_data_json=""
+
+    for name in "${secret_names[@]}"; do
+      secret_data_json=$(kubectl -n "$ns" --context "$ctx" get secret "$name" -o jsonpath='{.data}' 2>/dev/null)
+      if [[ -n "$secret_data_json" ]]; then
+        ksecret_name="$name"
+        break
+      fi
+    done
+
+    if [[ -z "$ksecret_name" ]]; then
+      echo "Could not find a secret for user '$user'. Tried: ${secret_names[*]}" >&2
+      ksecret_name=$(kubectl -n "$ns" --context "$ctx" get secrets -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | fzf --prompt="Select a secret > " --preview-window=hidden --height 50%)
+      if [[ -z "$ksecret_name" ]]; then
+        echo "No secret selected. Exiting."
+        return 1
+      fi
+      secret_data_json=$(kubectl -n "$ns" --context "$ctx" get secret "$ksecret_name" -o jsonpath='{.data}' 2>/dev/null)
+    fi
+    
+    echo "Found secret '$ksecret_name' for user '$user'."
+
+    local encoded_password
+    encoded_password=$(echo "$secret_data_json" | jq -r '.databasePassword')
+
+    if [[ -z "$encoded_password" || "$encoded_password" == "null" ]]; then
+      encoded_password=$(echo "$secret_data_json" | jq -r '.password')
+    fi
+
+    databasePassword=$(echo "$encoded_password" | base64 --decode)
+  fi
+
+  local pf_pid
+  local deployment_name="$user"
+  if ! kubectl -n "$ns" --context "$ctx" get "deployment/$deployment_name" &>/dev/null; then
+    deployment_name="$user-service"
+    if ! kubectl -n "$ns" --context "$ctx" get "deployment/$deployment_name" &>/dev/null; then
+      echo "Error: Could not find deployment for user '$user' (tried '$user' and '$user-service')." >&2
+      return 1
+    fi
+  fi
+  
+  local local_port=3306
+  # Find an available local port starting from 3306
+  while lsof -i :$local_port > /dev/null; do
+    local_port=$((local_port + 1))
+  done
+
+  echo "Forwarding $local_port -> $deployment_name:$port (ns=$ns ctx=$ctx)"
+  kubectl -n "$ns" --context "$ctx" port-forward "deployment/$deployment_name" "$local_port:$port" &>/dev/null &
+  pf_pid=$!
+
+  # Kill port-forwarding on interrupt.
+  trap 'kill $pf_pid 2>/dev/null' INT TERM
+
+  export PYTHONIOENCODING=utf-8
+
+  # Wait a moment for the port-forward to be ready
+  sleep 2
+
+  if [[ -n "$command" ]]; then
+    mycli -h "$host" -P "$local_port" -u "$user" -p "$databasePassword" -D "$db_name" -e "$command" --csv | nvim -c 'set ft=csv' -
+  else
+    mycli -h "$host" -P "$local_port" -u "$user" -p "$databasePassword" -D "$db_name"
+  fi
+
+  # Clean up the port-forwarding process
+  kill $pf_pid 2>/dev/null
 }

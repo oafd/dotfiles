@@ -23,7 +23,7 @@ end
 function M.run_test_class()
   local file = vim.api.nvim_buf_get_name(0)
   local class = vim.fn.fnamemodify(file, ":t:r")
-  send_to_term(("mvn -Dtest=%s test"):format(class))
+  send_to_term(("mvn clean -Dtest=%s test"):format(class))
 end
 
 function M.run_test_method()
@@ -36,7 +36,7 @@ function M.run_test_method()
     return
   end
 
-  send_to_term(("mvn -Dtest=%s#%s test"):format(class, method))
+  send_to_term(("mvn clean -Dtest=%s#%s test"):format(class, method))
 end
 
 return M
