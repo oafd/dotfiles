@@ -21,6 +21,9 @@ export TESTCONTAINERS_STARTUP_TIMEOUT=120
 export SOPS_EDITOR="$EDITOR"
 export GOOGLE_CLOUD_PROJECT_ID="kiwi-infra"
 export NODE_NO_WARNINGS=1
+export LANG=en_US.UTF-8
+export PYTHONIOENCODING=utf-8
+export PYTHONUTF8=1
 
 # ─────────────────────────────────────────────────────────────
 # Path
@@ -157,7 +160,7 @@ alias catjson='sed -e '\''s/\\n/\n    /g'\'' -e '\''s/\\tat/    at/g'\'' -e '\''
 alias color='pastel color'
 alias colores='pastel list'
 alias cp='cp -vi'
-alias du='dust -b -i -d 1'
+# alias du='dust -b -i -d 1'
 alias jqkeys="jq 'keys_unsorted[]' | sort -u"
 alias jqs='jq -R -r "fromjson? | select(.)"'
 alias jvv="/usr/libexec/java_home -V"
@@ -184,20 +187,3 @@ source "$HOME/.config/fzf/custom-functions.sh"
 # Compile .zshrc if not already compiled
 [[ -s ~/.config/zsh/.zshrc.zwc ]] || zcompile ~/.config/zsh/.zshrc
 
-j() {
-  local ver="$1"
-  local home
-  home="$(/usr/libexec/java_home -v "$ver" 2>/dev/null)" || return 1
-
-  export JAVA_HOME="$home"
-  export PATH="$JAVA_HOME/bin:${PATH//:$JAVA_HOME\/bin/}"  # cheap dedupe-ish
-  hash -r
-  java -version
-}
-
-j8(){  j 1.8; }
-j11(){ j 11; }
-j17(){ j 17; }
-j21(){ j 21; }
-j22(){ j 22; }
-j25(){ j 25; }
