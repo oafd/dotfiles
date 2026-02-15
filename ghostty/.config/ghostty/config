@@ -1,10 +1,5 @@
 theme=Catppuccin Mocha
 custom-shader = ~/.config/ghostty/shaders/cursor_smear_fade.glsl
-# custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl
-# custom-shader = ~/.config/ghostty/shaders/cursor_smear_less_animated.glsl
-# custom-shader = ~/.config/ghostty/shaders/sparks-from-fire.glsl
-#custom-shader = ~/.config/ghostty/shaders/cursor_smear_gradient.glsl
-#custom-shader = ~/.config/ghostty/shaders/cursor_blaze_no_trail.glsl
 keybind = cmd+ctrl+left=resize_split:left,20
 keybind = cmd+ctrl+right=resize_split:right,20
 keybind = cmd+ctrl+up=resize_split:up,20
@@ -12,18 +7,21 @@ keybind = cmd+ctrl+down=resize_split:down,20
 font-family=FiraCode Nerd Font
 font-size=16
 font-thicken=true
-adjust-cell-height = 15%
+adjust-cell-height = 20%
 title=" "
-background = #13121a
-#background = #000000
+# background = #13121a
+# background = #0b0a11
+background = #09080f
+# background = #000000
 background-opacity=0.80
-background-blur = 75
+background-blur = 5
 
 # macos-icon = glass
 macos-titlebar-style = tabs
 macos-option-as-alt = left
 macos-auto-secure-input = false
 macos-secure-input-indication = false
+
 
 confirm-close-surface=false
 mouse-hide-while-typing=true
@@ -48,7 +46,8 @@ mouse-scroll-multiplier = 2
 copy-on-select = clipboard
 
 unfocused-split-opacity=0.5
-unfocused-split-fill=#12131F
+#unfocused-split-fill=#12131F
+unfocused-split-fill=#09080f
 
 # split-divider-color=#CBA6F7
 # split-divider-color=#89B4FA
